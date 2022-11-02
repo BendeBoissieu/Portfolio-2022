@@ -1,5 +1,6 @@
-import { PerspectiveCamera, OrthographicCamera  } from "three";
+import { PerspectiveCamera, OrthographicCamera, GridHelper, AxesHelper } from "three";
 import Experience from "./Experience"
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 export default class Camera {
   constructor() {
@@ -10,6 +11,7 @@ export default class Camera {
 
     this.createPerspectiveCamera();
     this.createOrthographicCamera();
+    this.setOrbitControls();
 
   }
 
@@ -35,7 +37,22 @@ export default class Camera {
       100
     );
     this.scene.add(this.orthographicCamera);
+
+    const size = 10;
+    const divisions = 10;
+
+    const gridHelper = new GridHelper(size, divisions);
+    this.scene.add(gridHelper);
+
+    const axesHelper = new AxesHelper( 5 );
+    this.scene.add( axesHelper );
   }
+
+  setOrbitControls() {
+    this.controls = new OrbitControls(this.perspectiveCamera, this.canvas);
+    this.controls.enableDamping = true;
+    this.controls.enableZoom = true;
+}
 
   resize() {
     // Updating Perspective Camera on resize
