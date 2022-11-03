@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import Experience from "../Experience";
+import Controls from "./Controls";
 
 import Environment from "./Environment";
 import Island from "./Island";
@@ -9,6 +10,7 @@ export default class World {
         this.experience = new Experience();
         this.sizes = this.experience.sizes;
         this.scene = this.experience.scene;
+
         this.canvas = this.experience.canvas;
         this.camera = this.experience.camera;
         this.resources = this.experience.resources;
@@ -17,6 +19,7 @@ export default class World {
           console.log("Island loaded");
           this.environment = new Environment();
           this.island = new Island();
+          this.controls = new Controls();
         })
     }
 
@@ -26,6 +29,9 @@ export default class World {
     update() {
       if(this.island) {
         this.island.update();
+      }
+      if(this.controls) {
+        this.controls.update();
       }
     }
 }

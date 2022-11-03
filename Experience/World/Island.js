@@ -28,11 +28,9 @@ export default class Island {
           });
         }
         child.children.forEach(groupChild => {
-          console.log(groupChild);
           groupChild.castShadow = true;
           groupChild.receiveShadow = true;
           groupChild.children.forEach(groupChild => {
-            console.log(groupChild);
             groupChild.castShadow = true;
             groupChild.receiveShadow = true;
           });

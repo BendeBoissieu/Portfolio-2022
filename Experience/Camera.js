@@ -1,4 +1,4 @@
-import { PerspectiveCamera, OrthographicCamera, GridHelper, AxesHelper } from "three";
+import { PerspectiveCamera, OrthographicCamera, GridHelper, AxesHelper, CameraHelper } from "three";
 import Experience from "./Experience"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
@@ -23,25 +23,27 @@ export default class Camera {
       1000
     );
     this.scene.add(this.perspectiveCamera);
-    this.perspectiveCamera.position.x = 5;
-    this.perspectiveCamera.position.z = 5;
-    this.perspectiveCamera.position.y = 5;
+    this.perspectiveCamera.position.x = 22;
+    this.perspectiveCamera.position.z = 22;
+    this.perspectiveCamera.position.y = 22;
   }
 
   createOrthographicCamera() {
-    this.frustrum = 5;
     this.orthographicCamera = new OrthographicCamera(
       ( -this.sizes.aspect * this.sizes.frustrum ) / 2,
       ( this.sizes.aspect * this.sizes.frustrum ) / 2,
       this.sizes.frustrum / 2,
       - this.sizes.frustrum / 2,
-      -100,
-      100
+      -10,
+      10
     );
     this.scene.add(this.orthographicCamera);
 
-    const size = 10;
-    const divisions = 10;
+    this.helper = new CameraHelper(this.orthographicCamera);
+    this.scene.add(this.helper);
+
+    const size = 20;
+    const divisions = 20;
 
     const gridHelper = new GridHelper(size, divisions);
     this.scene.add(gridHelper);
@@ -69,6 +71,12 @@ export default class Camera {
     this.orthographicCamera.updateProjectionMatrix()
   }
 
-  update() {}
+  update() {
+    this.controls.update();
+    this.helper.matrixWorldNeedsUpdate = true;
+    this.helper.update();
+    this.helper.position.copy(this.orthographicCamera.position);
+    this.helper.rotation.copy(this.orthographicCamera.rotation);
+  }
 
 }
