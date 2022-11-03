@@ -2,7 +2,7 @@ export default [
   {
     name: "island",
     type: "glbModel",
-    path: "/models/low_poly_island.glb",
+    path: "/models/island.glb",
   },
   {
     name: "screen",

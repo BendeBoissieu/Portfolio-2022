@@ -20,6 +20,26 @@ export default class Island {
     }
 
     setModel() {
+      this.actualIsland.children.forEach(child => {
+        if (child instanceof THREE.Group) {
+          child.children.forEach(groupChild => {
+            groupChild.castShadow = true;
+            groupChild.receiveShadow = true;
+          });
+        }
+        child.children.forEach(groupChild => {
+          console.log(groupChild);
+          groupChild.castShadow = true;
+          groupChild.receiveShadow = true;
+          groupChild.children.forEach(groupChild => {
+            console.log(groupChild);
+            groupChild.castShadow = true;
+            groupChild.receiveShadow = true;
+          });
+        });
+        child.castShadow = true;
+        child.receiveShadow = true;
+      });
       this.scene.add(this.actualIsland);
       this.actualIsland.scale.set(0.4,0.4,0.4);
     }
