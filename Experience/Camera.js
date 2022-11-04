@@ -34,9 +34,15 @@ export default class Camera {
       ( this.sizes.aspect * this.sizes.frustrum ) / 2,
       this.sizes.frustrum / 2,
       - this.sizes.frustrum / 2,
-      -10,
-      10
+      -50,
+      50
     );
+
+    this.orthographicCamera.position.y = 3.5;
+    this.orthographicCamera.position.z = 5;
+    //this.orthographicCamera.lookAt(0,0,0);
+    this.orthographicCamera.rotation.x = -Math.PI / 6;
+
     this.scene.add(this.orthographicCamera);
 
     this.helper = new CameraHelper(this.orthographicCamera);
@@ -45,8 +51,8 @@ export default class Camera {
     const size = 20;
     const divisions = 20;
 
-    const gridHelper = new GridHelper(size, divisions);
-    this.scene.add(gridHelper);
+    // const gridHelper = new GridHelper(size, divisions);
+    // this.scene.add(gridHelper);
 
     const axesHelper = new AxesHelper( 5 );
     this.scene.add( axesHelper );
@@ -55,7 +61,7 @@ export default class Camera {
   setOrbitControls() {
     this.controls = new OrbitControls(this.perspectiveCamera, this.canvas);
     this.controls.enableDamping = true;
-    this.controls.enableZoom = false;
+    this.controls.enableZoom = true;
 }
 
   resize() {

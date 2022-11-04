@@ -4,6 +4,7 @@ import Controls from "./Controls";
 
 import Environment from "./Environment";
 import Island from "./Island";
+import Floor from "./Floor";
 
 export default class World {
     constructor() {
@@ -20,6 +21,7 @@ export default class World {
           this.environment = new Environment();
           this.island = new Island();
           this.controls = new Controls();
+          this.floor = new Floor();
         })
     }
 

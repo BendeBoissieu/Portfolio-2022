@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import Experience from "../Experience";
+import GSAP from "gsap";
 
 export default class Island {
     constructor() {
@@ -11,12 +12,16 @@ export default class Island {
 
         this.actualIsland = this.island.scene;
 
-        this.setModel();
-        // const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-        // const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-        // const cube = new THREE.Mesh( geometry, material );
-        // this.scene.add( cube );
+        // use for parallax effect
+        this.lerp = {
+          current: 0,
+          target: 0,
+          ease: 0.1,
+        };
 
+        this.setModel();
+
+        this.onMouseMove();
     }
 
     setModel() {
@@ -41,9 +46,26 @@ export default class Island {
       this.scene.add(this.actualIsland);
       this.actualIsland.scale.set(0.4,0.4,0.4);
     }
+
+    onMouseMove() {
+      window.addEventListener("mousemove", (e) => {
+        // to have the right and left position between -1 and 1
+        this.rotation = (((e.clientX - window.innerWidth) / 2) * 2)/window.innerWidth;
+        this.lerp.target = this.rotation;
+      });
+    }
+
     resize() {
     }
 
     update() {
+      // use for parallax effect
+      this.lerp.current = GSAP.utils.interpolate(
+        this.lerp.current,
+        this.lerp.target,
+        this.lerp.ease
+        );
+
+      this.actualIsland.rotation.y = this.lerp.current * 0.2;
     }
 }
