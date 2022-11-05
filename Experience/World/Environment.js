@@ -9,7 +9,7 @@ export default class Environment {
         this.setSunLight();
     }
     setSunLight() {
-      this.sunLight = new THREE.DirectionalLight("#ffffff", 1);
+      this.sunLight = new THREE.DirectionalLight("#ffffff", 2);
       this.sunLight.castShadow = true;
       this.sunLight.shadow.camera.far = 20;
       this.sunLight.shadow.mapSize.set(2048,2048);
@@ -20,7 +20,7 @@ export default class Environment {
       // const helper = new THREE.CameraHelper(this.sunLight.shadow.camera);
       // this.scene.add(helper);
 
-      this.ambientLight = new THREE.AmbientLight("#ffffff", 0.3);
+      this.ambientLight = new THREE.AmbientLight("#ffffff", 0.5);
       this.scene.add(this.ambientLight);
     }
 }
