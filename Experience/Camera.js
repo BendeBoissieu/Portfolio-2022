@@ -45,17 +45,17 @@ export default class Camera {
 
     this.scene.add(this.orthographicCamera);
 
-    this.helper = new CameraHelper(this.orthographicCamera);
-    this.scene.add(this.helper);
+    // this.helper = new CameraHelper(this.orthographicCamera);
+    // this.scene.add(this.helper);
 
-    const size = 20;
-    const divisions = 20;
+    // const size = 20;
+    // const divisions = 20;
 
     // const gridHelper = new GridHelper(size, divisions);
     // this.scene.add(gridHelper);
 
-    const axesHelper = new AxesHelper( 5 );
-    this.scene.add( axesHelper );
+    // const axesHelper = new AxesHelper( 5 );
+    // this.scene.add( axesHelper );
   }
 
   setOrbitControls() {
@@ -79,10 +79,11 @@ export default class Camera {
 
   update() {
     this.controls.update();
-    this.helper.matrixWorldNeedsUpdate = true;
-    this.helper.update();
-    this.helper.position.copy(this.orthographicCamera.position);
-    this.helper.rotation.copy(this.orthographicCamera.rotation);
+    // Helpers for the camera
+    // this.helper.matrixWorldNeedsUpdate = true;
+    // this.helper.update();
+    // this.helper.position.copy(this.orthographicCamera.position);
+    // this.helper.rotation.copy(this.orthographicCamera.rotation);
   }
 
 }
