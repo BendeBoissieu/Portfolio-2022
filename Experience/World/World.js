@@ -15,6 +15,7 @@ export default class World {
         this.canvas = this.experience.canvas;
         this.camera = this.experience.camera;
         this.resources = this.experience.resources;
+        this.theme = this.experience.theme;
 
         this.resources. on("ready", () => {
           console.log("Island loaded");
@@ -23,6 +24,15 @@ export default class World {
           this.controls = new Controls();
           this.floor = new Floor();
         })
+        this.theme.on("switch", (theme) => {
+          this.switchTheme(theme);
+        });
+    }
+
+    switchTheme(theme) {
+      if (this.environment) {
+          this.environment.switchTheme(theme);
+      }
     }
 
     resize() {

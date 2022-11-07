@@ -12,6 +12,7 @@ export default class Controls {
         this.time = this.experience.time;
         this.camera = this.experience.camera;
         this.island = this.experience.world.island.actualIsland;
+        this.sizes = this.experience.sizes;
         GSAP.registerPlugin(ScrollTrigger);
 
         this.setPath();
@@ -28,13 +29,14 @@ export default class Controls {
 
       // Top top, first one for the marker and second one the page
       this.timeline.to(this.island.position, {
-        x: 5,
+        x: () => { return this.sizes.width * 0.0017 },
         scrollTrigger: {
           trigger: ".first-move",
           markers: true,
           start: "top top",
           end: "bottom bottom",
-          scrub: true,
+          scrub: 0.6,
+          invalidateOnRefresh: true
         }
       })
     }
