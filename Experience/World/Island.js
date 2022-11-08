@@ -6,6 +6,7 @@ export default class Island {
     constructor() {
         this.experience = new Experience();
         this.scene = this.experience.scene;
+        this.time = this.experience.time;
 
         this.resources = this.experience.resources;
         this.island = this.resources.items.island;
@@ -20,8 +21,16 @@ export default class Island {
         };
 
         this.setModel();
-
+        this.setAnimation();
         this.onMouseMove();
+    }
+
+    setAnimation() {
+      this.mixer = new THREE.AnimationMixer(this.actualIsland);
+      this.island.animations.forEach(animation => {
+        this.swim = this.mixer.clipAction(animation);
+        this.swim.play();
+      });
     }
 
     setModel() {
@@ -40,11 +49,17 @@ export default class Island {
             groupChild.receiveShadow = true;
           });
         });
+        if (child.name === "Screen_billboard") {
+          child.material = new THREE.MeshPhongMaterial({
+              map: this.resources.items.screen,
+              emissive: "#000000",
+          });
+        }
         child.castShadow = true;
         child.receiveShadow = true;
       });
       this.scene.add(this.actualIsland);
-      this.actualIsland.scale.set(0.4,0.4,0.4);
+      this.actualIsland.scale.set(0.7,0.7,0.7);
     }
 
     onMouseMove() {
@@ -59,6 +74,8 @@ export default class Island {
     }
 
     update() {
+      // update animation
+      this.mixer.update(this.time.delta * 0.0009);
       // use for parallax effect
       this.lerp.current = GSAP.utils.interpolate(
         this.lerp.current,

@@ -2,11 +2,11 @@ export default [
   {
     name: "island",
     type: "glbModel",
-    path: "/models/island.glb",
+    path: "/models/island2.glb",
   },
   {
     name: "screen",
-    type: "videoTexture",
-    path: "/textures/screen.mp4",
+    type: "imageTexture",
+    path: "/textures/photo_profile.jpeg",
   }
 ]

@@ -38,8 +38,8 @@ export default class Camera {
       50
     );
 
-    this.orthographicCamera.position.y = 3.5;
-    this.orthographicCamera.position.z = 5;
+    this.orthographicCamera.position.y = 5.5;
+    this.orthographicCamera.position.z = 8;
     //this.orthographicCamera.lookAt(0,0,0);
     this.orthographicCamera.rotation.x = -Math.PI / 6;
 

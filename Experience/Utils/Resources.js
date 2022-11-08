@@ -40,7 +40,7 @@ export default class Resources extends EventEmitter {
       } else if(asset.type==="videoTexture"){
         this.video = {};
         this.videoTexture = {};
-        this.video[asset.name] = document.createElement("video"); 
+        this.video[asset.name] = document.createElement("video");
         this.video[asset.name].src = asset.path;
         this.video[asset.name].muted = true;
         this.video[asset.name].playsInline = true;
@@ -66,6 +66,10 @@ export default class Resources extends EventEmitter {
         this.videoTexture[asset.name].encoding = THREE.sRGBEncoding;
 
         this.singleAssetLoaded(asset, this.videoTexture[asset.name]);
+      } else if(asset.type==="imageTexture"){
+        this.imageTexture = {};
+        this.imageTexture[asset.name] = new THREE.TextureLoader().load(asset.path);
+        this.singleAssetLoaded(asset, this.imageTexture[asset.name]);
       }
     }
   }
