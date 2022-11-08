@@ -83,6 +83,8 @@ export default class Island {
         this.lerp.ease
         );
 
-      this.actualIsland.rotation.y = this.lerp.current * 0.2;
+      if (this.lerp.current != 0) {
+        this.actualIsland.rotation.y = this.lerp.current * 0.2;
+      }
     }
 }
