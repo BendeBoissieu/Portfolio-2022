@@ -14,6 +14,11 @@ svg{
   transition: background-color 0.5s, color 0.5s;
 }
 
+h1 {
+  margin: 40px 0;
+  font-size: 40px;
+}
+
 :root {
   --text-black: #1c1c1c;
   --primary-pink: #e7b5ca;
@@ -177,10 +182,14 @@ svg{
 
 .left{
   margin-right: auto;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 0;
 }
 
 .right{
   margin-left: auto;
+  border-top-left-radius: 100px;
+  border-bottom-left-radius: 0;
 }
 
 .section-intro-wrapper{
@@ -278,7 +287,7 @@ svg{
 
 .hero-second{
   position: absolute;
-  top: calc(50% - 120px);
+  top: calc(50% - 200px);
   right: 0;
   color: var(--color-text);
 }
