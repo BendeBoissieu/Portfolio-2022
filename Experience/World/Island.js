@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import Experience from "../Experience";
 import GSAP from "gsap";
+import { RectAreaLightHelper } from "three/examples/jsm/helpers/RectAreaLightHelper.js";
 
 export default class Island {
     constructor() {
@@ -51,10 +52,11 @@ export default class Island {
           });
         });
         if (child.name === "Screen_billboard") {
-          child.material = new THREE.MeshStandardMaterial({
+          child.material = new THREE.MeshPhongMaterial({
               map: this.resources.items.cardboardScreen,
-              roughness: 0,
-              metalness: 0.5,
+              side: THREE.FrontSide,
+              specular: 0xffffff,
+              shininess: 30
           });
         }
         if(child.name === "Macbook"){
@@ -62,7 +64,8 @@ export default class Island {
             if(child.name === "Screen"){
               child.material = new THREE.MeshStandardMaterial({
                 map: this.resources.items.Camaloon,
-                metalness: 0.7,
+                roughness: 0.1,
+                side: THREE.FrontSide,
               });
             }
           });
@@ -110,7 +113,6 @@ export default class Island {
         }
       })
 
-      console.log(this.screenItem)
       this.actualIsland.children.forEach(child => {
         if(child.name === "Macbook"){
           console.log("this.link");
