@@ -2,7 +2,7 @@ import * as THREE from "three";
 import Experience from "../Experience";
 import GSAP from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger.js";
-import GUI from "lil-gui";
+// import GUI from "lil-gui";
 // import ASScroll from "@ashthornton/asscroll";
 
 // const asscroll = new ASScroll()
@@ -16,6 +16,7 @@ export default class Controls {
         this.time = this.experience.time;
         this.camera = this.experience.camera;
         this.world = this.experience.world;
+        this.floor = this.experience.world.floor.plane;
         this.island = this.experience.world.island.actualIsland;
         this.sizes = this.experience.sizes;
 
@@ -33,16 +34,17 @@ export default class Controls {
         // }
         this.setTrigger();
 
-        this.gui = new GUI();
-        this.obj = {
-          position: {
-            x: this.camera.orthographicCamera.position.x,
-            y: this.camera.orthographicCamera.position.y,
-            z: this.camera.orthographicCamera.position.z
-          },
-          scale: this.island.scale.x,
-        };
-        this.setGUI();
+        // Gui console
+        // this.gui = new GUI();
+        // this.obj = {
+        //   position: {
+        //     x: this.camera.orthographicCamera.position.x,
+        //     y: this.camera.orthographicCamera.position.y,
+        //     z: this.camera.orthographicCamera.position.z
+        //   },
+        //   scale: this.island.scale.x,
+        // };
+        // this.setGUI();
 
     }
 
@@ -71,7 +73,7 @@ export default class Controls {
               return {
                   top: 0,
                   left: 0,
-                  width: window.innerWidth,
+                  width: this.sizes.width,
                   height: window.innerHeight,
               };
           },
@@ -113,14 +115,14 @@ export default class Controls {
     }
 
     setTrigger(){
-      console.log(this.sizes.height)
+      console.log(this.sizes.width)
       ScrollTrigger.matchMedia({
         //Desktop
         "(min-width: 969px)": () => {
           this.island.scale.set(0.7, 0.7, 0.7);
           this.camera.orthographicCamera.position.set(0, 5, 8);
           this.island.position.set(0, 0, 0);
-          // 1st move
+          // Section 1
           this.firstMoveTimeline = new GSAP.timeline({
             scrollTrigger: {
                 trigger: ".first-move",
@@ -132,57 +134,114 @@ export default class Controls {
             },
           });
           this.firstMoveTimeline.fromTo(
-            this.island.position,
-            { x: 0, y: 0, z: 0 },
+            this.camera.orthographicCamera.position,
+            { x: 0, y: 5, z: 8 },
             {
-                x: () => {
-                    return this.sizes.width * 0.0014;
-                }
-            },
+              x: () => {
+                return - this.sizes.width * 0.0014;
+              }
+            }
           )
-
-          // 2nd move
+          // // Section 2
           this.secondMoveTimeline = new GSAP.timeline({
             scrollTrigger: {
                 trigger: ".second-move",
                 start: "top top",
-                end: "bottom bottom",
+                end: "75%+=100px bottom",
+                markers: false,
                 scrub: 0.6,
                 invalidateOnRefresh: true,
             },
           })
             .to(
-                this.island.position,
-                {
-                    x: () => {
-                      return - this.sizes.width * 0.0012;
-                    },
-                    z: () => {
-                        return this.sizes.height * 0.0032;
-                    },
+              this.camera.orthographicCamera.position,
+              {
+                  x: () => {
+                    return this.sizes.width * 0.0018;
+                  },
+                  y: () => {
+                      return 5.5;
+                  },
+              },
+              "same"
+            )
+            .to(
+              this.floor.position,
+              {
+                y: () => {
+                  return -1.2;
                 },
-                "same"
+              },
+              "same"
             )
             .to(
               this.island.scale,
               {
                 x: () => {
-                  return 3;
+                  return (this.sizes.height * 2 / this.sizes.width);
                 },
                 y: () => {
-                  return 3;
+                  return (this.sizes.height * 2 / this.sizes.width);
                 },
                 z: () => {
-                    return 3;
+                    return (this.sizes.height * 2 / this.sizes.width);
                 },
               },
               "same"
             ),
 
-          // Third section -----------------------------------------
+          // Section 3
           this.thirdMoveTimeline = new GSAP.timeline({
             scrollTrigger: {
                 trigger: ".third-move",
+                start: "-10% top",
+                end: "50%+=100px bottom",
+                scrub: 0.6,
+                markers: false,
+                invalidateOnRefresh: true,
+            },
+          })
+            .to(
+              this.island.scale,
+              {
+                x: () => {
+                  return (this.sizes.height * 40 / this.sizes.width);
+                },
+                y: () => {
+                  return (this.sizes.height * 40 / this.sizes.width);
+                },
+                z: () => {
+                    return (this.sizes.height * 40 / this.sizes.width);
+                },
+              },
+              "same"
+            )
+            .to(
+              this.camera.orthographicCamera.position,
+              {
+                  x: () => {
+                    return -this.sizes.width * 0.0015;
+                  },
+                  y: () => {
+                      return 5.5;
+                  },
+              },
+              "same"
+            )
+            .to(
+              this.floor.position,
+              {
+                y: () => {
+                  return -9;
+                },
+              },
+              "same"
+            ),
+
+          // Section 4
+          this.fourthMoveTimeline = new GSAP.timeline({
+            scrollTrigger: {
+                trigger: ".fourth-move",
                 start: "top top",
                 end: "bottom bottom",
                 scrub: 0.6,
@@ -190,25 +249,50 @@ export default class Controls {
             },
           })
             .to(
-                this.camera.orthographicCamera.position,
-                {
-                  x: () => {
-                    return - this.sizes.width * 0.00175
-                  }
-                },
-                "same"
-            )
-            .to(
               this.island.scale,
               {
                 x: () => {
-                  return 17;
+                  return (this.sizes.height * 1 / this.sizes.width);
                 },
                 y: () => {
-                  return 17;
+                  return (this.sizes.height * 1 / this.sizes.width);
                 },
                 z: () => {
-                    return 17;
+                    return (this.sizes.height * 1 / this.sizes.width);
+                },
+              },
+              "same"
+            )
+            .to(
+              this.camera.orthographicCamera.position,
+              {
+                  x: () => {
+                    return this.sizes.width * 0.0016;
+                  },
+                  y: () => {
+                      return 5.5;
+                  },
+              },
+              "same"
+            )
+            .to(
+              this.island.position,
+              {
+                y: () => {
+                  return this.sizes.width * 0.0004;
+                },
+              },
+              "same"
+            )
+            .to(
+              this.floor.position,
+              {
+                y: () => {
+                  if (this.sizes.width < 1900) {
+                    return 0.03
+                  } else {
+                    return 0.3
+                  }
                 },
               },
               "same"
@@ -248,24 +332,24 @@ export default class Controls {
     update() {
     }
 
-    setGUI() {
-      console.log(this.camera.orthographicCamera.position.x);
-      // this.gui.add( this.obj );
-      this.folder = this.gui.addFolder( 'scale' );
-      this.gui.add( this.obj, 'scale' ).onChange(() => {
-        this.island.scale.x = this.obj.scale ;
-        this.island.scale.y = this.obj.scale ;
-        this.island.scale.z = this.obj.scale ;
-      });
-      this.folder = this.gui.addFolder( 'camera' );
-      this.folder.add( this.obj.position, 'x' ).onChange(() => {
-          this.camera.orthographicCamera.position.x = this.obj.position.x ;
-      });
-      this.folder.add( this.obj.position, 'y' ).onChange(() => {
-        this.camera.orthographicCamera.position.y = this.obj.position.y ;
-      });
-      this.folder.add( this.obj.position, 'z' ).onChange(() => {
-        this.camera.orthographicCamera.position.z = this.obj.position.z ;
-      });
-    }
+    // setGUI() {
+    //   console.log(this.camera.orthographicCamera.position.x);
+    //   // this.gui.add( this.obj );
+    //   this.folder = this.gui.addFolder( 'scale' );
+    //   this.gui.add( this.obj, 'scale' ).onChange(() => {
+    //     this.island.scale.x = this.obj.scale ;
+    //     this.island.scale.y = this.obj.scale ;
+    //     this.island.scale.z = this.obj.scale ;
+    //   });
+    //   this.folder = this.gui.addFolder( 'camera' );
+    //   this.folder.add( this.obj.position, 'x' ).onChange(() => {
+    //       this.camera.orthographicCamera.position.x = this.obj.position.x ;
+    //   });
+    //   this.folder.add( this.obj.position, 'y' ).onChange(() => {
+    //     this.camera.orthographicCamera.position.y = this.obj.position.y ;
+    //   });
+    //   this.folder.add( this.obj.position, 'z' ).onChange(() => {
+    //     this.camera.orthographicCamera.position.z = this.obj.position.z ;
+    //   });
+    // }
 }

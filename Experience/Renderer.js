@@ -35,10 +35,10 @@ export default class Renderer {
 
     update() {
         // Creating different views to see on different cameras
-        // this.renderer.setViewport(0,0,this.sizes.width, this.sizes.height);
+        //this.renderer.setViewport(0,0,this.sizes.width, this.sizes.height);
         this.renderer.render(this.scene, this.camera.orthographicCamera);
 
-        // 2nd screen
+        //2nd screen
         // this.renderer.setScissorTest(true);
         // this.renderer.setViewport(
         //     this.sizes.width - this.sizes.width / 3,

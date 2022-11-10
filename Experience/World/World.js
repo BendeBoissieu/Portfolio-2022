@@ -16,22 +16,32 @@ export default class World {
         this.camera = this.experience.camera;
         this.resources = this.experience.resources;
         this.theme = this.experience.theme;
+        this.screen = this.experience.screen;
 
         this.resources. on("ready", () => {
           console.log("Island loaded");
           this.environment = new Environment();
           this.island = new Island();
-          this.controls = new Controls();
           this.floor = new Floor();
+          this.controls = new Controls();
         })
         this.theme.on("switch", (theme) => {
           this.switchTheme(theme);
         });
+        this.screen.on("hoverLink", (link) => {
+          this.changeScreen(link);
+        })
     }
 
     switchTheme(theme) {
       if (this.environment) {
           this.environment.switchTheme(theme);
+      }
+    }
+
+    changeScreen(link) {
+      if (this.island) {
+        this.island.changeScreen(link);
       }
     }
 

@@ -8,6 +8,7 @@ import Renderer from "./Renderer.js"
 import Resources from "./Utils/Resources.js"
 import assets  from "./Utils/assets.js"
 import Theme from "./Theme.js";
+import Screen from "./Screen.js";
 
 import World from "./World/World.js"
 
@@ -27,6 +28,7 @@ export default class Experience {
     this.renderer = new Renderer();
     this.resources = new Resources(assets );
     this.theme = new Theme();
+    this.screen = new Screen();
     this.world = new World();
 
     this.sizes.on("resize", () => {

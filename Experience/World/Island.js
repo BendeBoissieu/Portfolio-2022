@@ -12,6 +12,7 @@ export default class Island {
         this.island = this.resources.items.island;
 
         this.actualIsland = this.island.scene;
+        this.link = this.experience.link;
 
         // use for parallax effect
         this.lerp = {
@@ -50,9 +51,20 @@ export default class Island {
           });
         });
         if (child.name === "Screen_billboard") {
-          child.material = new THREE.MeshPhongMaterial({
-              map: this.resources.items.screen,
-              emissive: "#000000",
+          child.material = new THREE.MeshStandardMaterial({
+              map: this.resources.items.cardboardScreen,
+              roughness: 0,
+              metalness: 0.5,
+          });
+        }
+        if(child.name === "Macbook"){
+          child.children.forEach(child => {
+            if(child.name === "Screen"){
+              child.material = new THREE.MeshStandardMaterial({
+                map: this.resources.items.Camaloon,
+                metalness: 0.7,
+              });
+            }
           });
         }
         child.castShadow = true;
@@ -89,5 +101,29 @@ export default class Island {
         this.actualIsland.rotation.y = this.lerp.current * 0.02;
       }
 
+    }
+
+    changeScreen(link) {
+      Object.keys(this.resources.items).forEach(item => {
+        if (link == item) {
+          this.screenItem = this.resources.items[item]
+        }
+      })
+
+      console.log(this.screenItem)
+      this.actualIsland.children.forEach(child => {
+        if(child.name === "Macbook"){
+          console.log("this.link");
+          console.log(this.link);
+          child.children.forEach(child => {
+            if(child.name === "Screen"){
+              child.material = new THREE.MeshStandardMaterial({
+                map: this.screenItem,
+                metalness: 0.5,
+              });
+            }
+          });
+        }
+      });
     }
 }

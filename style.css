@@ -19,6 +19,10 @@ h1 {
   font-size: 40px;
 }
 
+a {
+  display: block;
+}
+
 :root {
   --text-black: #1c1c1c;
   --primary-pink: #e7b5ca;
@@ -174,22 +178,26 @@ h1 {
 .section{
   position: relative;
   width: 50%;
-  margin: 0;
   background-color: var(--color-background);
   overflow: hidden;
-  padding: 200px 20px;
+  padding: 200px 0;
+}
+
+.margin-left-right {
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .left{
   margin-right: auto;
   border-top-right-radius: 100px;
-  border-bottom-right-radius: 0;
+  border-bottom-right-radius: 100px;
 }
 
 .right{
   margin-left: auto;
   border-top-left-radius: 100px;
-  border-bottom-left-radius: 0;
+  border-bottom-left-radius: 100px;
 }
 
 .section-intro-wrapper{
@@ -215,10 +223,23 @@ h1 {
   margin-top: 64px;
 }
 
+.title-line {
+  border-bottom: solid #8395CD 4px;
+  margin-bottom: 70px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
 .section-text{
   line-height: 2;
   margin-top: 18px;
   font-size: 16px;
+  color: #000;
+  line-height: 1;
+  font-weight: 600;
+  font-size: 20px;
 }
 
 .section-title{
