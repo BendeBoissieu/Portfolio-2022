@@ -21,7 +21,6 @@ export default class World extends EventEmitter{
         this.screen = this.experience.screen;
 
         this.resources. on("ready", () => {
-          console.log("Island loaded");
           this.environment = new Environment();
           this.island = new Island();
           this.floor = new Floor();

@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { EventEmitter } from "events";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader"
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js"
 
 import Experience from "../Experience";
 
@@ -25,7 +25,7 @@ export default class Resources extends EventEmitter {
     this.loaders = {}
     this.loaders.gltfloader = new GLTFLoader();
     this.loaders.dracoloader = new DRACOLoader();
-    this.loaders.dracoloader.setDecoderPath("/draco");
+    this.loaders.dracoloader.setDecoderPath("/draco/");
     this.loaders.gltfloader.setDRACOLoader(this.loaders.dracoloader)
 
 
@@ -78,9 +78,9 @@ export default class Resources extends EventEmitter {
     this.items[asset.name] = file;
     this.loaded++
 
-    // console.log("asset is loading", `${parseInt(this.loaded * 100/this.queue)}%`);
+    //console.log("asset is loading", `${parseInt(this.loaded * 100/this.queue)}%`);
     if(this.loaded === this.queue){
-      console.log("finished")
+      console.log("assets loaded")
       this.emit("ready");
     }
   }

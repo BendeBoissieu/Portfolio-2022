@@ -2,7 +2,7 @@ export default [
   {
     name: "island",
     type: "glbModel",
-    path: "/models/island3.glb",
+    path: "/models/island.glb",
   },
   {
     name: "cardboardScreen",

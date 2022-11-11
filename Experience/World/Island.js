@@ -25,6 +25,7 @@ export default class Island {
         this.setModel();
         this.setAnimation();
         this.onMouseMove();
+        this.onDeviceOrientation();
     }
 
     setAnimation() {
@@ -85,6 +86,13 @@ export default class Island {
       });
     }
 
+    onDeviceOrientation() {
+      window.addEventListener("deviceorientation", (e) => {
+        this.rotation = e.alpha;
+        this.lerp.target = this.rotation;
+      });
+    }
+
     resize() {
     }
 
@@ -115,7 +123,6 @@ export default class Island {
 
       this.actualIsland.children.forEach(child => {
         if(child.name === "Macbook"){
-          console.log("this.link");
           console.log(this.link);
           child.children.forEach(child => {
             if(child.name === "Screen"){

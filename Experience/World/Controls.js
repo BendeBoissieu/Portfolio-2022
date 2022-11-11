@@ -115,7 +115,6 @@ export default class Controls {
     }
 
     setTrigger(){
-      console.log(this.sizes.width)
       ScrollTrigger.matchMedia({
         //Desktop
         "(min-width: 969px)": () => {
@@ -305,7 +304,7 @@ export default class Controls {
 
           // Resets
           this.island.scale.set(0.3, 0.3, 0.3);
-          this.island.position.set(0, 0, 0);
+          this.island.position.set(0, 0, 0.8);
           this.camera.orthographicCamera.position.set(0, 2, 4);
 
           // Section 1
