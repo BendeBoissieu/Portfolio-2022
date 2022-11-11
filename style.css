@@ -28,11 +28,18 @@ a {
   font-size: 22px;
 }
 
+ul {
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   --text-black: #48485b;
   --primary-pink: #e7b5ca;
   --color-green: #b5e7d5;
   --color-pink: #e5a1aa;
+  --color-pink-hover: #d4848f;
   --color-background: #f6f0e3;;
   --color-blue: #357DED;
   --color-purple: #5438DC;
@@ -291,6 +298,26 @@ a {
   color: var(--color-text);
 }
 
+.grid_container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: auto;
+  grid-gap: 1rem;
+}
+
+.grid-card {
+  border: 2px solid var(--color-pink);
+  border-radius: 4px;
+  padding: 1.5rem;
+  align-items: center;
+  display: flex;
+}
+
+.grid-card:hover {
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -2px rgb(0 0 0 / 5%);
+}
+
+
 /* Media Queries */
 
 @media (max-width: 968px){
@@ -318,5 +345,9 @@ a {
   }
   .hero-second-subheading{
     font-size: 18px;
+  }
+
+  .grid_container {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
