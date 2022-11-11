@@ -50,14 +50,26 @@ export default class Island {
           groupChild.children.forEach(groupChild => {
             groupChild.castShadow = true;
             groupChild.receiveShadow = true;
+            groupChild.children.forEach(groupChild => {
+              groupChild.castShadow = true;
+              groupChild.receiveShadow = true;
+              groupChild.children.forEach(groupChild => {
+                groupChild.castShadow = true;
+                groupChild.receiveShadow = true;
+              });
+            });
           });
         });
         if (child.name === "Screen_billboard") {
-          child.material = new THREE.MeshPhongMaterial({
+          child.material = new THREE.MeshStandardMaterial({
               map: this.resources.items.cardboardScreen,
               side: THREE.FrontSide,
               specular: 0xffffff,
-              shininess: 30
+              emissiveMap: this.resources.items.cardboardScreen,
+              emissiveIntensity: 0.2,
+              emissive: 0x9b9fa2,
+              metalness: 0.6,
+              roughness: 0
           });
         }
         if(child.name === "Macbook"){
@@ -65,8 +77,12 @@ export default class Island {
             if(child.name === "Screen"){
               child.material = new THREE.MeshStandardMaterial({
                 map: this.resources.items.Camaloon,
-                roughness: 0.1,
+                roughness: 0,
                 side: THREE.FrontSide,
+                emissiveMap: this.resources.items.Camaloon,
+                emissiveIntensity: 0.2,
+                emissive: 0x9b9fa2,
+                metalness: 0.8,
               });
             }
           });
@@ -128,8 +144,14 @@ export default class Island {
             if(child.name === "Screen"){
               child.material = new THREE.MeshStandardMaterial({
                 map: this.screenItem,
-                metalness: 0.5,
+                roughness: 0.2,
+                side: THREE.FrontSide,
+                emissiveMap: this.screenItem,
+                emissiveIntensity: 0.2,
+                emissive: 0x9b9fa2,
+                metalness: 0.8
               });
+              child.castShadow = true;
             }
           });
         }
