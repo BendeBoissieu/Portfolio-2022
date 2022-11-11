@@ -104,7 +104,7 @@ export default class Island {
 
     onDeviceOrientation() {
       window.addEventListener("deviceorientation", (e) => {
-        this.rotation = e.alpha;
+        this.rotation = e.gamma * 0.08;
         this.lerp.target = this.rotation;
       });
     }
