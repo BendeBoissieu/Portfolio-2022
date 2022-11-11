@@ -7,6 +7,7 @@ import Camera from "./Camera.js"
 import Renderer from "./Renderer.js"
 import Resources from "./Utils/Resources.js"
 import assets  from "./Utils/assets.js"
+import Preloader from "./Preloader.js";
 import Theme from "./Theme.js";
 import Screen from "./Screen.js";
 
@@ -30,6 +31,7 @@ export default class Experience {
     this.theme = new Theme();
     this.screen = new Screen();
     this.world = new World();
+    this.preloader = new Preloader();
 
     this.sizes.on("resize", () => {
       this.update();
@@ -65,6 +67,7 @@ export default class Experience {
   }
 
   update() {
+    this.preloader.update();
     this.camera.update();
     this.world.update();
     this.renderer.update();

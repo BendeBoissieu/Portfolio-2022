@@ -308,7 +308,7 @@ export default class Controls {
           this.island.position.set(0, 0, 0);
           this.camera.orthographicCamera.position.set(0, 2, 4);
 
-          // First section -----------------------------------------
+          // Section 1
           this.firstMoveTimeline = new GSAP.timeline({
               scrollTrigger: {
                   trigger: ".first-move",
@@ -317,11 +317,96 @@ export default class Controls {
                   scrub: 0.6,
                   // invalidateOnRefresh: true,
               },
-          }).to(this.island.scale, {
-              x: 0.6,
-              y: 0.6,
-              z: 0.6,
-          });
+          })
+            .to(
+              this.island.scale,
+              {
+                  x: 3,
+                  y: 3,
+                  z: 3,
+              },
+              "same"
+            )
+            .to(
+              this.floor.position,
+              {
+                y: () => {
+                  return -9;
+                },
+              },
+              "same"
+            )
+            .to(
+              this.island.position,
+              {
+                x: () => {
+                  return 0.8;
+                },
+              },
+              "same"
+            )
+
+          // Section 2
+          this.secondMoveTimeline = new GSAP.timeline({
+            scrollTrigger: {
+                trigger: ".second-move",
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 0.6,
+                invalidateOnRefresh: true,
+            },
+            })
+              .to(
+                  this.island.scale,
+                  {
+                      x: 10,
+                      y: 10,
+                      z: 10,
+                  },
+                  "same"
+              )
+              .to(
+                this.island.position,
+                {
+                  x: () => {
+                    return 0;
+                  },
+                },
+                "same"
+              )
+
+
+            // Section 3
+            this.thirdMoveTimeline = new GSAP.timeline({
+                scrollTrigger: {
+                    trigger: ".third-move",
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: 0.6,
+                    invalidateOnRefresh: true,
+                },
+            })
+            .to(
+              this.island.scale,
+              {
+                  x: 1,
+                  y: 1,
+                  z: 1,
+              },
+              "same"
+            )
+            .to(
+              this.island.position,
+              {
+                x: () => {
+                  return -1;
+                },
+                z: () => {
+                  return 2;
+                },
+              },
+              "same"
+            )
         }
       })
     }

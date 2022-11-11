@@ -78,7 +78,7 @@ export default class Resources extends EventEmitter {
     this.items[asset.name] = file;
     this.loaded++
 
-    console.log("asset is loading", `${parseInt(this.loaded * 100/this.queue)}%`);
+    // console.log("asset is loading", `${parseInt(this.loaded * 100/this.queue)}%`);
     if(this.loaded === this.queue){
       console.log("finished")
       this.emit("ready");
