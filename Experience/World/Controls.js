@@ -406,6 +406,52 @@ export default class Controls {
               },
               "same"
             )
+        },
+
+        // all
+        all: () => {
+          this.sections = document.querySelectorAll(".section");
+          this.sections.forEach((section) => {
+              if (section.classList.contains("right")) {
+                  GSAP.to(section, {
+                      borderTopLeftRadius: 50,
+                      scrollTrigger: {
+                          trigger: section,
+                          start: "top bottom",
+                          end: "top top",
+                          scrub: 0.6,
+                      },
+                  });
+                  GSAP.to(section, {
+                      borderBottomLeftRadius: 200,
+                      scrollTrigger: {
+                          trigger: section,
+                          start: "bottom bottom",
+                          end: "bottom top",
+                          scrub: 0.6,
+                      },
+                  });
+              } else {
+                  GSAP.to(section, {
+                      borderTopRightRadius: 50,
+                      scrollTrigger: {
+                          trigger: section,
+                          start: "top bottom",
+                          end: "top top",
+                          scrub: 0.6,
+                      },
+                  });
+                  GSAP.to(section, {
+                      borderBottomRightRadius: 200,
+                      scrollTrigger: {
+                          trigger: section,
+                          start: "bottom bottom",
+                          end: "bottom top",
+                          scrub: 0.6,
+                      },
+                  });
+              }
+          });
         }
       })
     }
